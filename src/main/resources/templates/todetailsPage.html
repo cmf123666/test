@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/layui/css/layui.css" >
+    <link rel="stylesheet" href="/layui/css/modules/laydate/default/laydate.css">
+    <script src="/layui/layui.all.js" charset="UTF-8"></script>
+    <script src="/layui/jquery-1.8.0.js"></script>
+</head>
+<body>
+
+<div>
+    <i class="layui-icon layui-icon-spread-left" style="font-size: 10px; color: black"></i><font size="2px">订单号：<span th:text="${o.ddid}"></span></font>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size="2px">下单时间:<span  th:text="${o.xiadanDate}"></span></font>
+    出发地: <i class="layui-icon layui-icon-release" style="font-size: 10px; color: black"></i><span th:text="${o.fahuodiqu}"></span>
+    收货地：<i class="layui-icon layui-icon-release" style="font-size: 10px; color: black"></i><span th:text="${o.shouhuodiqu}"></span>
+   <div id="div1">
+       <input type="hidden" th:value="${o.id}" id="text1">
+    <button class="layui-btn layui-btn-primary layui-btn-radius" onclick="ceshi()">受理订单</button>
+   </div>
+    <div id="div2" style="display: none">
+        <button class="layui-btn layui-btn-primary layui-btn-radius">已受理</button>
+    </div>
+</div>
+
+</body>
+
+<script>
+      function ceshi(){
+        var id = $("#text1").val();
+          //alert(id);
+     $("#div1").hide()
+     $("#div2").show();
+       $.ajax({
+          //修改订单状态
+           url:"updateddstatus?id="+id+"&status="+1,
+           type:"post",
+           success:function () {
+               layer.msg('已经成功受理订单', {
+                   icon: 1,
+                   time: 2000 //2秒关闭（如果不配置，默认是3秒）
+               }, function(){
+                   //do something
+               });
+           }
+       })
+     
+     
+     
+     
+     
+     
+     
+      }
+
+
+
+
+</script>
+
+
+
+</html>
